@@ -20,6 +20,9 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
+import Inicio from './pages/Inicio';
+import Alimentos from './pages/Alimentos';
+
 /* Theme variables */
 import './theme/variables.css';
 
@@ -31,11 +34,13 @@ const App: React.FC = () => {
           <Menu />
           <IonRouterOutlet id="main">
             <Route path="/" exact={true}>
-              <Redirect to="/page/Inbox" />
+              <Redirect to="/page/Inicio" />
             </Route>
             <Route path="/page/:name" exact={true}>
               <Page />
             </Route>
+            <Route path="/page/Inicio" component={Inicio}/>
+            <Route path="/page/Alimentos" component={Alimentos}/>
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>
