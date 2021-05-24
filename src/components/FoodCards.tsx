@@ -10,7 +10,12 @@ import {
   IonButton,
   IonCol,
   useIonAlert,
+  IonBadge,
+  IonItem,
 } from "@ionic/react";
+
+import { Toast } from "@capacitor/toast";
+import { Haptics, ImpactStyle } from "@capacitor/haptics";
 
 const FoodCards: React.FC<{
   onAddCalories: (calories: number) => void;
@@ -21,6 +26,12 @@ const FoodCards: React.FC<{
 }> = (props) => {
   const [present] = useIonAlert();
 
+  const showToast = async (value: string) => {
+    await Toast.show({
+      text: value,
+    });
+    await Haptics.impact({ style: ImpactStyle.Light });
+  };
   return (
     <IonCard>
       <IonCardHeader>
@@ -32,20 +43,35 @@ const FoodCards: React.FC<{
         <IonGrid>
           <IonRow>
             <IonCol>
-              <IonLabel>Calorías: {props.calories}</IonLabel>
+              <IonItem>
+                <IonLabel>Calorías:</IonLabel>
+                <IonBadge color="secondary">{props.calories}</IonBadge>
+              </IonItem>
             </IonCol>
             <IonCol className="ion-text-right">
               <IonButton
                 onClick={() =>
                   present({
-                    cssClass: 'my-css',
-                    header: '¿Deseas agregar este alimento?',
-                    message: 'Estás a punto de agregar "' + props.name + '" con ' + props.calories + ' calorías.',
+                    cssClass: "my-css",
+                    header: "¿Deseas agregar este alimento?",
+                    message:
+                      'Estás a punto de agregar "' +
+                      props.name +
+                      '" con ' +
+                      props.calories +
+                      " calorías.",
                     buttons: [
-                      'Cancelar',
-                      { text: 'Agregar', handler: () => props.onAddCalories(props.calories) },
+                      {
+                        text: "Cancelar",
+                        handler: () => showToast("Producto no agregado."),
+                      },
+                      {
+                        text: "Agregar",
+                        handler: () => props.onAddCalories(props.calories),
+                      },
                     ],
-                    onDidDismiss: (e) => console.log('did dismiss'),
+                    onDidDismiss: (e) =>
+                      console.log("Nomas para rellenar otro capacitor."),
                   })
                 }
               >

@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+
+ReactDOM.render(<App />, document.getElementById('root'));
+
+// Call the element loader after the app has been rendered the first time
+defineCustomElements(window);
 
 ReactDOM.render(
   <React.StrictMode>

@@ -22,6 +22,7 @@ import '@ionic/react/css/display.css';
 
 import Inicio from './pages/Inicio';
 import Alimentos from './pages/Alimentos';
+import Otras from './pages/Otras';
 
 /* Theme variables */
 import './theme/variables.css';
@@ -41,6 +42,7 @@ const App: React.FC = () => {
             </Route>
             <Route path="/page/Inicio" component={Inicio}/>
             <Route path="/page/Alimentos" component={Alimentos}/>
+            <Route path="/page/Otras" component={Otras}/>
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>

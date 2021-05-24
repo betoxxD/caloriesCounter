@@ -11,7 +11,7 @@ import {
 } from '@ionic/react';
 
 import { useLocation } from 'react-router-dom';
-import { heartOutline, heartSharp, home, fastFood } from 'ionicons/icons';
+import { heartOutline, heartSharp, home, fastFood, settingsSharp } from 'ionicons/icons';
 import './Menu.css';
 
 interface AppPage {
@@ -35,10 +35,10 @@ const appPages: AppPage[] = [
     mdIcon: fastFood
   },
   {
-    title: 'Favorites',
-    url: '/page/Favorites',
-    iosIcon: heartOutline,
-    mdIcon: heartSharp
+    title: 'Otras funciones',
+    url: '/page/Otras',
+    iosIcon: settingsSharp,
+    mdIcon: settingsSharp
   }
 ];
 

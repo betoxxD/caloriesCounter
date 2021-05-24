@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "caloriesCounter",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}

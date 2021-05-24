@@ -1,6 +1,8 @@
 import {
+  IonButton,
   IonButtons,
   IonContent,
+  IonGrid,
   IonHeader,
   IonMenuButton,
   IonPage,
@@ -12,6 +14,7 @@ import "./Alimentos.css";
 
 import FoodCardsWhitoutButton from "../components/FoodCardsWhitoutButton";
 import { useEffect, useState } from "react";
+import { Browser } from "@capacitor/browser";
 
 import foodData from "../hooks/foodData";
 
@@ -50,6 +53,16 @@ const Alimentos: React.FC = () => {
           onIonChange={(e) => setSearchText(e.detail.value!)}
           animated
         ></IonSearchbar>
+        <IonGrid>
+          <IonButton
+            expand="block"
+            onClick={async () => {
+              await Browser.open({ url: "http://capacitorjs.jp/" });
+            }}
+          >
+            Más información
+          </IonButton>
+        </IonGrid>
         {filteredSearch.map((search) => (
           <FoodCardsWhitoutButton
             calories={search.calories}
