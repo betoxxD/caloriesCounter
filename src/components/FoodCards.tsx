@@ -9,6 +9,7 @@ import {
   IonLabel,
   IonButton,
   IonCol,
+  useIonAlert,
 } from "@ionic/react";
 
 const FoodCards: React.FC<{
@@ -18,6 +19,8 @@ const FoodCards: React.FC<{
   description: string;
   calories: number;
 }> = (props) => {
+  const [present] = useIonAlert();
+
   return (
     <IonCard>
       <IonCardHeader>
@@ -32,7 +35,20 @@ const FoodCards: React.FC<{
               <IonLabel>Calorías: {props.calories}</IonLabel>
             </IonCol>
             <IonCol className="ion-text-right">
-              <IonButton onClick={() => props.onAddCalories(props.calories)}>
+              <IonButton
+                onClick={() =>
+                  present({
+                    cssClass: 'my-css',
+                    header: '¿Deseas agregar este alimento?',
+                    message: 'Estás a punto de agregar "' + props.name + '" con ' + props.calories + ' calorías.',
+                    buttons: [
+                      'Cancelar',
+                      { text: 'Agregar', handler: () => props.onAddCalories(props.calories) },
+                    ],
+                    onDidDismiss: (e) => console.log('did dismiss'),
+                  })
+                }
+              >
                 Agregar Alimento
               </IonButton>
             </IonCol>
