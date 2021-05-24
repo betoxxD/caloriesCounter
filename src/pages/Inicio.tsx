@@ -1,12 +1,10 @@
 import {
-  IonButton,
   IonButtons,
   IonCard,
   IonCardContent,
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
-  IonCol,
   IonContent,
   IonGrid,
   IonHeader,
@@ -18,20 +16,41 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
 import "./Inicio.css";
 import FoodCards from "../components/FoodCards";
+import foodData from "../hooks/foodData";
 
 const Inicio: React.FC = () => {
+  /* Constantes para los cálculos */
   const [calculatedCalories, setCalculatedCalories] = useState<number>(0);
   const [consumedFood, setConsumedFood] = useState<number>(0);
 
-  const [searchText, setSearchText] = useState("");
-
+  /* Aumenta las calorias consumidas con base al alimento que se agrega */
   const addCalories = (newCalories: number) => {
     setCalculatedCalories(calculatedCalories + newCalories);
     setConsumedFood(consumedFood + 1);
   };
+
+  /* Constantes para la busqueda de alimentos */
+  const [searchText, setSearchText] = useState("");
+  const [filteredSearch, setFilteredSearch] = useState([
+    {
+      id: 0,
+      typeFood: "",
+      name: "",
+      description: "",
+      calories: 0,
+    },
+  ]);
+
+  /* Funcion para realizar la busqueda */
+  useEffect(() => {
+    let tempSearchResult = foodData.filter((ele) =>
+      ele.name.includes(searchText)
+    );
+    setFilteredSearch([...tempSearchResult]);
+  }, [searchText]);
 
   return (
     <IonPage>
@@ -53,7 +72,9 @@ const Inicio: React.FC = () => {
               <IonGrid>
                 <IonRow>
                   <IonLabel>Calorías consumidas: </IonLabel>
-                  {calculatedCalories && <IonLabel>{calculatedCalories}</IonLabel>}
+                  {calculatedCalories && (
+                    <IonLabel>{calculatedCalories}</IonLabel>
+                  )}
                 </IonRow>
                 <IonRow>
                   <IonLabel>Alimentos consumidos: </IonLabel>
@@ -68,7 +89,15 @@ const Inicio: React.FC = () => {
           onIonChange={(e) => setSearchText(e.detail.value!)}
           animated
         ></IonSearchbar>
-        <FoodCards onAddCalories = { (calories: number) => addCalories(calories) } />
+        {filteredSearch.map((search) => (
+          <FoodCards
+            onAddCalories={(calories: number) => addCalories(calories)}
+            calories={search.calories}
+            description={search.description}
+            name={search.name}
+            typeFood={search.typeFood}
+          />
+        ))}
       </IonContent>
     </IonPage>
   );

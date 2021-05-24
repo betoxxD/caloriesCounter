@@ -1,7 +1,6 @@
 import {
   IonButtons,
   IonContent,
-  IonGrid,
   IonHeader,
   IonMenuButton,
   IonPage,
@@ -9,15 +8,31 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { useParams } from "react-router";
 import "./Alimentos.css";
 
 import FoodCardsWhitoutButton from "../components/FoodCardsWhitoutButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import foodData from "../hooks/foodData";
 
 const Alimentos: React.FC = () => {
-  const { name } = useParams<{ name: string }>();
   const [searchText, setSearchText] = useState("");
+  const [filteredSearch, setFilteredSearch] = useState([
+    {
+      id: 0,
+      typeFood: "",
+      name: "",
+      description: "",
+      calories: 0,
+    },
+  ]);
+
+  useEffect(() => {
+    let tempSearchResult = foodData.filter((ele) =>
+      ele.name.includes(searchText)
+    );
+    setFilteredSearch([...tempSearchResult]);
+  }, [searchText]);
 
   return (
     <IonPage>
@@ -35,7 +50,14 @@ const Alimentos: React.FC = () => {
           onIonChange={(e) => setSearchText(e.detail.value!)}
           animated
         ></IonSearchbar>
-        <FoodCardsWhitoutButton />
+        {filteredSearch.map((search) => (
+          <FoodCardsWhitoutButton
+            calories={search.calories}
+            description={search.description}
+            name={search.name}
+            typeFood={search.typeFood}
+          />
+        ))}
       </IonContent>
     </IonPage>
   );
