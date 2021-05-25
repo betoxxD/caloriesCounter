@@ -1,3 +1,4 @@
+// Constante tipo arreglo JSON la cual almacena la información de los alimentos.
 const foodData = [
   {
     id: 1,
@@ -30,4 +31,5 @@ const foodData = [
   },
 ];
 
+// Se exporta esta variable
 export default foodData;

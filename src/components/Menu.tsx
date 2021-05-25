@@ -21,6 +21,9 @@ interface AppPage {
   title: string;
 }
 
+// Constante que guarda un arreglo tipo JSON, el cual almacena los elementos que están contenidos en el menú lateral,
+// Además de esto, le define un ícono y una url, esta url se define en App.tsx y se direcciona a las páginas que definimos
+// Creadas y contenidas en la carpeta pages
 const appPages: AppPage[] = [
   {
     title: 'Inicio',

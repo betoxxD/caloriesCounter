@@ -20,6 +20,8 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
+
+// Importación de las páginas que se crearon (encargadas de mostrar el contenido de la aplicación)
 import Inicio from './pages/Inicio';
 import Alimentos from './pages/Alimentos';
 import Otras from './pages/Otras';
@@ -40,6 +42,7 @@ const App: React.FC = () => {
             <Route path="/page/:name" exact={true}>
               <Page />
             </Route>
+            {/* Creación de rutas de las páginas para poder integrarlas al menú lateral */}
             <Route path="/page/Inicio" component={Inicio}/>
             <Route path="/page/Alimentos" component={Alimentos}/>
             <Route path="/page/Otras" component={Otras}/>

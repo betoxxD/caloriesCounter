@@ -21,23 +21,30 @@ import {
 } from "@ionic/react";
 import "./Otras.css";
 
+// Importación de los capacitores
 import { StatusBar } from "@capacitor/status-bar";
 import { Device } from "@capacitor/device";
+
+// Importación de useState
 import { useState } from "react";
 
 const Otras: React.FC = () => {
+  // Definición de las variables necesarias para almacenar la información del dispositivo, obtenida del capacitor.
   const [deviceInfo, setDeviceInfo] = useState<string>("");
   const [batteryInfo, setBatteryInfo] = useState<string>("");
   const [languageCode, setlanguageCode] = useState<string>("");
 
+  // Función que muestra la barra de tareas usando el capacitor
   const showStatusBar = async () => {
     await StatusBar.show();
   };
 
+  // función que oculta la barra de tareas usando el capacitor
   const hideStatusBar = async () => {
     await StatusBar.hide();
   };
 
+  // Función que obtiene la información del dispositivo y la almacena en las variables definidas anteriormente.
   const chargeDeviceInfo = async () => {
     var info = await Device.getInfo();
     setDeviceInfo(info.osVersion);

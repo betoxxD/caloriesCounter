@@ -19,6 +19,7 @@ import { Browser } from "@capacitor/browser";
 import foodData from "../hooks/foodData";
 
 const Alimentos: React.FC = () => {
+  // Constantes Define constantes y su valor default
   const [searchText, setSearchText] = useState("");
   const [filteredSearch, setFilteredSearch] = useState([
     {
@@ -30,6 +31,8 @@ const Alimentos: React.FC = () => {
     },
   ]);
 
+  // Función que se ejecuta cuando se ingresa texto en el buscador, se encarga de filtrar los alimentos que coincidan
+  // Con lo que ingresó el usuario y los colocas en la variable filteredSearch definida anteriormente.
   useEffect(() => {
     let tempSearchResult = foodData.filter((ele) =>
       ele.name.includes(searchText)
@@ -48,6 +51,9 @@ const Alimentos: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen className="ion-padding">
+        { /* Muestra la barra de búsqueda, obtiene el dato y cada que cambie ejecuta la función de filtración
+             definida anteriormente.
+         */ }
         <IonSearchbar
           value={searchText}
           onIonChange={(e) => setSearchText(e.detail.value!)}
@@ -57,13 +63,18 @@ const Alimentos: React.FC = () => {
           <IonButton
             expand="block"
             onClick={async () => {
+              /* Utiliza el capacitor Browser para abrir un hipervínculo */
               await Browser.open({ url: "http://capacitorjs.jp/" });
             }}
           >
             Más información
           </IonButton>
         </IonGrid>
-        {filteredSearch.map((search) => (
+        {
+          /* recorre la variable que guarda los elementos filtrados y los muestra llamando el componente que definimos 
+              llamado FoodCardsWihtoutButton.
+          */
+        filteredSearch.map((search) => (
           <FoodCardsWhitoutButton
             calories={search.calories}
             description={search.description}
@@ -76,4 +87,5 @@ const Alimentos: React.FC = () => {
   );
 };
 
+// Exporta Alimento
 export default Alimentos;
